@@ -1,21 +1,27 @@
 from datetime import datetime
 
-from position import Position
-from sport import Sport
-from team import Team
+from .position import Position
+from .sport import Sport
+from .team import Team
 
 
 class AvailablePlayer:
+    def __str__(self):
+        return ("Player Id: " + str(self.player_id) +
+                ", Name: " + str(self.first_name) + " " +str(self.last_name) +
+                ", Points: " + str(self.draftkings_points_per_game) +
+                ", Salary: " + str(self.salary))
+                
     def __init__(self, player_id, first_name, last_name, jersey_number, position_group, draft_group_start_time,
                  team, match_up, is_disabled_from_drafting, exceptional_messages, salary, draftkings_points_per_contest,
                  opposition_rank):
         if type(player_id) is not int:
             raise TypeError('player id field is not an int')
 
-        if type(first_name) is not unicode:
+        if type(first_name) is not str:
             raise TypeError('first name field is not a string')
 
-        if type(last_name) is not unicode:
+        if type(last_name) is not str:
             raise TypeError('last name field is not a string')
 
         if type(jersey_number) is not int:
@@ -27,8 +33,8 @@ class AvailablePlayer:
         if type(draft_group_start_time) is not datetime:
             raise TypeError('draft group start timestamp field is not a datetime')
 
-        if not isinstance(team, Team):
-            raise TypeError('team field is not valid')
+        #if not isinstance(team, Team):
+            #raise TypeError('team field is not valid')
 
         if not isinstance(match_up, MatchUp):
             raise TypeError('match up field is not valid')
@@ -108,7 +114,7 @@ class AvailablePlayerPositionGroup:
         if type(position_group_id) is not int:
             raise TypeError('position group id: %s is not an int', position_group_id)
 
-        if type(position_group_name) is not basestring:
+        if type(position_group_name) is not str:
             raise TypeError('position group name: %s is not a string', position_group_name)
 
         positions = Position.get_positions(sport=sport, abbreviations=position_group_name.split('/'))
@@ -120,11 +126,11 @@ class MatchUp:
         if not type(match_up_id) is int:
             raise TypeError('match up id: %s is not a number', match_up_id)
 
-        if not isinstance(home_team, Team):
-            raise TypeError('home team is not a valid team')
+        #if not isinstance(home_team, Team):
+            #raise TypeError('home team is not a valid team')
 
-        if not isinstance(away_team, Team):
-            raise TypeError('away team is not a valid team')
+        #if not isinstance(away_team, Team):
+            #raise TypeError('away team is not a valid team')
 
         self.match_up_id = match_up_id
         self.home_team = home_team

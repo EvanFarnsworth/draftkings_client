@@ -1,9 +1,16 @@
 from datetime import datetime
 
-from draft_kings_client.data.models.sport import Sport
-
+from .sport import Sport
 
 class Contest:
+    def __str__(self):
+        return ("Id: " + str(self.contest_id) + 
+                ", Group: " + str(self.draft_group_id) +
+                ", Starts: " + str(self.start_timestamp) + 
+                ", Entries: " + str(self.total_entries) + 
+                ", Fee: " + str(self.entry_fee) + 
+                ", Payout: " + str(self.total_payout))
+
     def __init__(self, contest_id, start_timestamp, fantasy_player_points, sport, name, is_guaranteed, is_starred,
                  is_head_to_head, is_double_up, is_fifty_fifty, total_entries, maximum_entries, entry_fee,
                  total_payout, draft_group_id):
@@ -20,7 +27,7 @@ class Contest:
         if not isinstance(sport, Sport):
             raise TypeError('sport is not valid')
 
-        if type(name) is not unicode:
+        if type(name) is not str:
             raise TypeError('name is not a string')
 
         if type(is_guaranteed) is not bool:
@@ -41,3 +48,5 @@ class Contest:
         self.entry_fee = entry_fee
         self.total_payout = total_payout
         self.draft_group_id = draft_group_id
+
+

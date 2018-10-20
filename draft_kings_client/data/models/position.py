@@ -1,6 +1,6 @@
 from enum import Enum
 
-from sport import Sport
+from .sport import Sport
 
 
 class Position(Enum):

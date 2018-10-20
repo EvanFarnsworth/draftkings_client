@@ -15,28 +15,32 @@ class AvailablePlayerTranslator:
 
         player_id = response['pid']
         team_series_id = response['tsid']
-        first_name = unicode(response['fn'])
-        last_name = unicode(response['ln'])
+        first_name = str(response['fn'])
+        last_name = str(response['ln'])
         jersey_number = response['jn']
-        position_group_name = unicode(response['pn'])
+        position_group_name = str(response['pn'])
         position_group_id = response['posid']
-        draft_group_start_time = datetime.fromtimestamp(timestamp=response['dgst'] / 1e3, tz=pytz.utc)
+
+        #needed a fix as the response could be None
+        stamp = response['dgst'] if response['dgst'] != None else 0e3
+        draft_group_start_time = datetime.fromtimestamp(timestamp= stamp/1e3, tz=pytz.utc)
         team_id = response['tid']
-        team = Team.value_of(draft_kings_id=team_id)
+        #team = Team.value_of(draft_kings_id=team_id)
         home_team_id = response['htid']
         away_team_id = response['atid']
+        home_team = response['htabbr']
+        away_team = response['atabbr']
+        team = home_team if team_id == home_team_id else away_team
         is_disabled_from_drafting = response['IsDisabledFromDrafting']
         exceptional_messages = response['ExceptionalMessages']
         salary = float(response['s'])
         draftkings_points_per_contest = float(response['ppg'])
         opposition_rank = response['or']
 
-        home_team = Team.value_of(draft_kings_id=home_team_id)
-        away_team = Team.value_of(draft_kings_id=away_team_id)
+        
         match_up = MatchUp(match_up_id=team_series_id, home_team=home_team, away_team=away_team)
         position_group = AvailablePlayerPositionGroup(position_group_id=position_group_id,
-                                                      positions=Position.get_positions_from_position_group_name(sport=team.value['sport'],
-                                                                                                                position_group_name=position_group_name))
+                                                      positions=[position_group_name])
         available_player = AvailablePlayer(player_id=player_id, first_name=first_name, last_name=last_name,
                                            jersey_number=jersey_number, position_group=position_group,
                                            draft_group_start_time=draft_group_start_time, team=team,

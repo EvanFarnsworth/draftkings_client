@@ -1,6 +1,6 @@
 from enum import Enum
 
-from sport import Sport
+from .sport import Sport
 
 
 class Team(Enum):
@@ -133,4 +133,4 @@ class Team(Enum):
             if team.value['id'] == draft_kings_id:
                 return team
 
-        raise ValueError('Unable to identify team for id: %s', draft_kings_id)
+        #raise ValueError('Unable to identify team for id: %s', draft_kings_id)

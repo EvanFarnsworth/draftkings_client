@@ -1,9 +1,9 @@
 import requests
 
-from data.models.sport import Sport
-from data.translators.available_players_translator import AvailablePlayersTranslator
-from data.translators.contests_response_translator import ContestsResponseTranslator
-from data.utilities.url_builder import UrlBuilder
+from draft_kings_client.data.models.sport import Sport
+from draft_kings_client.data.translators.available_players_translator import AvailablePlayersTranslator
+from draft_kings_client.data.translators.contests_response_translator import ContestsResponseTranslator
+from draft_kings_client.data.utilities.url_builder import UrlBuilder
 
 
 class DraftKingsClient:
@@ -24,7 +24,7 @@ class DraftKingsClient:
 
     @staticmethod
     def get_available_players(draft_group_id):
-        if type(draft_group_id) is not int and type(draft_group_id) is not long:
+        if type(draft_group_id) is not int:
             raise TypeError('draft group id must be an integer or long')
 
         response = requests.get(url=UrlBuilder.get_available_players_url(),

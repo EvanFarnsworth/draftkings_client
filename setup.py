@@ -8,11 +8,9 @@ setup(
   description='A DraftKings client',
   author='Jae Bradley',
   author_email='jae.b.bradley@gmail.com',
-  url='https://github.com/jaebradley/draftkings_client',
-  download_url='https://github.com/jaebradley/draftkings_client/tarball/1.0',
   keywords=['sports', 'dfs', 'draftkings', 'draft kings'],
   classifiers=[
     'Development Status :: 3 - Alpha',
-    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3.6',
   ],
 )
